@@ -17,13 +17,13 @@ function plyMeta:IsRank(str)
 end
 
 function plyMeta:GetRank()
-    return ors.get_player_rank(self)
+    return ors.get_player_rank(self:SteamID64())
 end
 
 function plyMeta:SetRank(rank)
     if (rank and type(rank) == "string") then
         if (not self:IsRank(rank)) then
-            if (ors.update_rank(self, rank)) then
+            if (ors.update_rank(self:SteamID64(), rank)) then
                 self:SetNWRank(rank)
                 return true
             end
@@ -36,7 +36,7 @@ function plyMeta:RefreshRank()
 end
 
 function plyMeta:ClearRank()
-    if (ors.update_rank(self, ors.base_rank)) then
+    if (ors.update_rank(self:SteamID64(), ors.base_rank)) then
         return true
     end
 end
